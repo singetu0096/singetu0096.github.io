@@ -4,10 +4,16 @@
       <strong>{{ site.title }}</strong>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
-      <a data-nav-key="portfolio" class="{% if page.url contains '/portfolio/' %}is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
-      <a data-nav-key="writeups" href="{{ '/blog/' | relative_url }}?tag=writeup">Writeups</a>
-      <a data-nav-key="blog" class="{% if page.url contains '/blog/' %}is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
-    </nav>
+    <div class="header-actions">
+      <nav class="site-nav" aria-label="Primary">
+        <a data-nav-key="portfolio" class="{% if page.url contains '/portfolio/' %}is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+        <a data-nav-key="writeups" href="{{ '/blog/' | relative_url }}?tag=writeup">Writeups</a>
+        <a data-nav-key="blog" class="{% if page.url contains '/blog/' %}is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
+      </nav>
+
+      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="ダークモードに切り替え">
+        <span data-theme-toggle-label>Dark</span>
+      </button>
+    </div>
   </div>
 </header>

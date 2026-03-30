@@ -7,6 +7,7 @@ collection_label: "Portfolio"
 permalink: /portfolio/
 ---
 {% assign profile = site.data.profile %}
+{% assign availability = profile.availability | markdownify | remove: '<p>' | remove: '</p>' | strip %}
 
 <section class="section section-tight">
   <div class="shell section-grid section-grid-double">
@@ -14,6 +15,12 @@ permalink: /portfolio/
       <div class="card-header">
         <p class="eyebrow">Profile</p>
         <h2>{{ profile.owner }}</h2>
+        {% if profile.headline %}
+          <p class="hero-english">{{ profile.headline }}</p>
+        {% endif %}
+        {% if profile.subheadline %}
+          <p class="support-copy">{{ profile.subheadline }}</p>
+        {% endif %}
       </div>
       <p>{{ profile.intro }}</p>
       <dl class="fact-list">
@@ -26,8 +33,8 @@ permalink: /portfolio/
           <dd>{{ profile.focus_areas | join: " / " }}</dd>
         </div>
         <div>
-          <dt>Contact</dt>
-          <dd>{{ profile.availability }}</dd>
+          <dt>Availability</dt>
+          <dd>{{ availability }}</dd>
         </div>
       </dl>
     </article>

@@ -1,8 +1,9 @@
+{% assign profile = site.data.profile %}
 <footer class="site-footer">
   <div class="shell footer-inner">
     <div>
       <p class="footer-title">{{ site.title }}</p>
-      <p class="footer-copy">ポートフォリオ、writeup、ブログをまとめた個人サイトです。</p>
+      <p class="footer-copy">{{ profile.footer_copy | default: "ポートフォリオ、writeup、ブログをまとめた個人サイトです。" }}</p>
     </div>
 
     <div class="footer-links">
@@ -14,6 +15,5 @@
 
   <div class="shell footer-meta">
     <span>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</span>
-    <span>Portfolio / Writeups / Blog</span>
   </div>
 </footer>

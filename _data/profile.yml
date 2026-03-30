@@ -1,12 +1,13 @@
 # Edit this file to keep your portfolio current.
 owner: "singetu0096"
-headline: "セキュリティ、CTF、技術メモをまとめた個人サイト"
-headline_en: "Portfolio, writeups, and blog."
+headline: "Portfolio, writeups, and blog"
+headline_en: ""
 subheadline: "プロフィール、活動内容、連絡先を掲載しています。"
 intro: "セキュリティ、CTF、技術メモを記録しています。"
 intro_en: "Security notes, writeups, and blog posts."
 location: "Japan"
 availability: "メールまたは GitHub / X から連絡できます。"
+footer_copy: "Contact from <a href='/portfolio/'>Portfolio</a>."
 
 links:
   - label: "Portfolio"
