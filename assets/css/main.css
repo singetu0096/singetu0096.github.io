@@ -198,6 +198,24 @@ button {
   font-size: 1.04rem;
 }
 
+.hero-english,
+.support-copy,
+.section-lead {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+.hero-english {
+  font-family: "Space Grotesk", "IBM Plex Sans JP", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.support-copy,
+.section-lead {
+  font-size: 0.96rem;
+}
+
 .eyebrow,
 .panel-label,
 .post-card-meta,
@@ -384,6 +402,18 @@ button {
 .mini-list li {
   display: grid;
   gap: 0.2rem;
+}
+
+.compact-list {
+  margin-top: 1rem;
+}
+
+.compact-list strong {
+  font-size: 0.95rem;
+}
+
+.compact-list span {
+  color: var(--muted);
 }
 
 .stack-list {

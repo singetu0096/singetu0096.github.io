@@ -1,8 +1,10 @@
 # Edit this file to keep your portfolio current.
 owner: "singetu0096"
-headline: "Security, CTF, and engineering notes."
+headline: "セキュリティ、CTF、技術メモを継続的に公開する個人サイト"
+headline_en: "Security, CTF, and engineering notes."
 subheadline: "検証ログ、技術メモ、公開実績をひとつにまとめた個人サイトです。"
 intro: "Web セキュリティ、CTF、検証メモ、運用ログを継続的に公開しています。結果だけでなく、考え方や検証の過程も残すことを重視しています。"
+intro_en: "A personal archive for security research, CTF writeups, and practical engineering notes."
 location: "Japan"
 availability: "ご連絡はメールまたは GitHub / X からお願いします。"
 
