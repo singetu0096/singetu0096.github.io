@@ -46,7 +46,7 @@ permalink: /blog/
           {% if post.tags %}
             <div class="tag-list">
               {% for tag in post.tags %}
-                <span class="tag">{{ tag }}</span>
+                <a class="tag" href="{{ '/blog/?tag=' | append: tag | uri_escape | relative_url }}" data-tag-link="{{ tag | downcase }}">{{ tag }}</a>
               {% endfor %}
             </div>
           {% endif %}

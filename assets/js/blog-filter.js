@@ -1,4 +1,10 @@
 const navLinks = Array.from(document.querySelectorAll("[data-nav-key]"));
+const normalizeValue = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
+const getFilterValue = (element) => normalizeValue(element?.dataset.filter);
+const getCardTags = (card) => (card?.dataset.tags || "")
+  .split(",")
+  .map((tag) => normalizeValue(tag))
+  .filter(Boolean);
 
 const syncNav = (activeFilterValue) => {
   if (navLinks.length === 0) {
@@ -34,15 +40,18 @@ if (controls) {
   const results = document.querySelector("[data-results-line]");
   const emptyState = document.querySelector("[data-empty-state]");
   const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+  const tagLinks = Array.from(document.querySelectorAll("[data-tag-link]"));
   const sortSelect = document.querySelector("[data-sort]");
   const params = new URLSearchParams(window.location.search);
 
-  let activeFilter = (params.get("tag") || "all").toLowerCase();
-  let activeSort = (params.get("sort") || "newest").toLowerCase();
+  let activeFilter = normalizeValue(params.get("tag") || "all");
+  let activeSort = normalizeValue(params.get("sort") || "newest");
 
   const applyState = () => {
     filterButtons.forEach((button) => {
-      button.classList.toggle("is-active", button.dataset.filter === activeFilter);
+      const isActive = getFilterValue(button) === activeFilter;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
     });
 
     if (sortSelect) {
@@ -66,7 +75,7 @@ if (controls) {
     let visibleCount = 0;
 
     sortedCards.forEach((card) => {
-      const tags = card.dataset.tags.split(",").filter(Boolean);
+      const tags = getCardTags(card);
       const visible = activeFilter === "all" || tags.includes(activeFilter);
       card.hidden = !visible;
 
@@ -101,7 +110,7 @@ if (controls) {
     syncNav(activeFilter);
   };
 
-  if (!filterButtons.some((button) => button.dataset.filter === activeFilter)) {
+  if (!filterButtons.some((button) => getFilterValue(button) === activeFilter)) {
     activeFilter = "all";
   }
 
@@ -111,14 +120,28 @@ if (controls) {
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
+      activeFilter = getFilterValue(button);
+      applyState();
+    });
+  });
+
+  tagLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const nextFilter = normalizeValue(link.dataset.tagLink);
+
+      if (!filterButtons.some((button) => getFilterValue(button) === nextFilter)) {
+        return;
+      }
+
+      event.preventDefault();
+      activeFilter = nextFilter;
       applyState();
     });
   });
 
   if (sortSelect) {
     sortSelect.addEventListener("change", (event) => {
-      activeSort = event.target.value;
+      activeSort = normalizeValue(event.target.value);
       applyState();
     });
   }
