@@ -1,6 +1,6 @@
 ---
-title: "Sample CTF Writeup: basic-stack"
-description: "CTF writeup 記事をどのような形で残すかのサンプル。問題概要、着眼点、解法を分けて整理します。"
+title: "basic-stack writeup"
+description: "basic-stack を題材に、問題概要、着眼点、解法を整理した CTF writeup。"
 date: 2026-03-30 11:00:00 +0900
 tags:
   - ctf
@@ -8,7 +8,7 @@ tags:
   - pwn
 ---
 
-今回はサンプルとして、スタック操作がテーマのウォームアップ問題を扱います。
+今回は、スタック操作がテーマのウォームアップ問題を扱います。
 
 <!--more-->
 

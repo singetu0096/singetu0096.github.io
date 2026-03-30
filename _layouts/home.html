@@ -6,18 +6,18 @@ layout: default
 <section class="hero">
   <div class="shell hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Portfolio + Blog</p>
+      <p class="eyebrow">Security Notes</p>
       <h1>{{ profile.headline }}</h1>
       <p class="lead">{{ profile.intro }}</p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="{{ '/portfolio/' | relative_url }}">View Portfolio</a>
-        <a class="button button-secondary" href="{{ '/blog/' | relative_url }}">Read Blog</a>
+        <a class="button button-primary" href="{{ '/portfolio/' | relative_url }}">ポートフォリオを見る</a>
+        <a class="button button-secondary" href="{{ '/blog/' | relative_url }}">ブログを見る</a>
       </div>
     </div>
 
     <aside class="hero-panel">
-      <p class="panel-label">Focus Areas</p>
+      <p class="panel-label">Focus</p>
       <div class="token-list">
         {% for area in profile.focus_areas %}
           <span class="token">{{ area }}</span>
@@ -30,12 +30,12 @@ layout: default
           <dd>{{ profile.location }}</dd>
         </div>
         <div>
-          <dt>Publishing</dt>
-          <dd>Markdown + GitHub Pages</dd>
-        </div>
-        <div>
           <dt>Contact</dt>
           <dd>{{ profile.contacts[0].value }}</dd>
+        </div>
+        <div>
+          <dt>Updates</dt>
+          <dd>Blog / Portfolio</dd>
         </div>
       </dl>
     </aside>
@@ -46,8 +46,8 @@ layout: default
   <div class="shell section-grid section-grid-double">
     <article class="card card-accent">
       <div class="card-header">
-        <p class="eyebrow">Portfolio Snapshot</p>
-        <h2>経歴と実績を一枚に整理</h2>
+        <p class="eyebrow">Portfolio</p>
+        <h2>プロフィールと活動内容</h2>
       </div>
       <p>{{ profile.subheadline }}</p>
       <ul class="mini-list">
@@ -63,7 +63,7 @@ layout: default
 
     <article class="card">
       <div class="card-header">
-        <p class="eyebrow">Latest Posts</p>
+        <p class="eyebrow">Recent Posts</p>
         <h2>最近の投稿</h2>
       </div>
       <div class="stack-list">
@@ -84,26 +84,26 @@ layout: default
   <div class="shell section-grid section-grid-triple">
     <article class="card">
       <div class="card-header">
-        <p class="eyebrow">Flow</p>
-        <h2>記事の追加は Markdown だけ</h2>
+        <p class="eyebrow">Writing</p>
+        <h2>検証過程も残す</h2>
       </div>
-      <p><strong>_posts</strong> に Markdown を追加するだけで記事になります。front matter にはタイトル、概要、タグを書くだけです。</p>
+      <p>結果だけではなく、調査手順、着眼点、失敗した仮説も含めて記事として整理しています。</p>
     </article>
 
     <article class="card">
       <div class="card-header">
-        <p class="eyebrow">Filter</p>
-        <h2>タグで絞り込み</h2>
+        <p class="eyebrow">Topics</p>
+        <h2>セキュリティと CTF を中心に</h2>
       </div>
-      <p>ブログ一覧では <strong>security</strong>、<strong>ctf</strong>、<strong>writeup</strong> などのタグで記事を絞り込めます。</p>
+      <p>Web セキュリティ、CTF、技術メモ、軽量な自動化など、実際に手を動かした内容を主に扱います。</p>
     </article>
 
     <article class="card">
       <div class="card-header">
-        <p class="eyebrow">Deploy</p>
-        <h2>push で自動公開</h2>
+        <p class="eyebrow">Archive</p>
+        <h2>記事はタグ単位で整理</h2>
       </div>
-      <p>GitHub Actions が走り、GitHub Pages へ自動で反映されます。記事更新から公開までの手数を減らしています。</p>
+      <p>記事はタグで絞り込みできるので、興味のある分野だけを追いやすい構成にしています。</p>
     </article>
   </div>
 </section>

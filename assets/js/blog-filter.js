@@ -49,8 +49,8 @@ if (controls) {
 
     if (results) {
       results.textContent = activeFilter === "all"
-        ? `${visibleCount} posts`
-        : `${visibleCount} posts in "${activeFilter}"`;
+        ? `${visibleCount} 件の記事`
+        : `タグ: ${activeFilter} / ${visibleCount} 件`;
     }
 
     if (emptyState) {

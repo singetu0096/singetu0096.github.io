@@ -5,10 +5,10 @@ layout: default
 
 <article class="post-shell">
   <div class="shell">
-    <a class="post-backlink" href="{{ '/blog/' | relative_url }}">Blog Index</a>
+    <a class="post-backlink" href="{{ '/blog/' | relative_url }}">ブログ一覧へ</a>
 
     <header class="post-header">
-      <p class="eyebrow">Article</p>
+      <p class="eyebrow">記事</p>
       <h1>{{ page.title }}</h1>
       {% if page.description %}
         <p class="lead">{{ page.description }}</p>
@@ -16,7 +16,7 @@ layout: default
 
       <div class="post-meta">
         <span>{{ page.date | date: "%Y.%m.%d" }}</span>
-        <span>{{ reading_time }} min read</span>
+        <span>約 {{ reading_time }} 分</span>
       </div>
 
       {% if page.tags %}

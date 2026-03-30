@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Portfolio
-subtitle: "経歴、実績、連絡先をまとめるためのプロフィールページです。"
+subtitle: "経歴、実績、連絡先をまとめたプロフィールページです。"
 description: "singetu0096 の経歴や実績、連絡先を掲載するポートフォリオページ。"
-collection_label: "Profile"
+collection_label: "Portfolio"
 permalink: /portfolio/
 ---
 {% assign profile = site.data.profile %}
@@ -12,7 +12,7 @@ permalink: /portfolio/
   <div class="shell section-grid section-grid-double">
     <article class="card card-accent">
       <div class="card-header">
-        <p class="eyebrow">Overview</p>
+        <p class="eyebrow">Profile</p>
         <h2>{{ profile.owner }}</h2>
       </div>
       <p>{{ profile.intro }}</p>
@@ -26,7 +26,7 @@ permalink: /portfolio/
           <dd>{{ profile.focus_areas | join: " / " }}</dd>
         </div>
         <div>
-          <dt>Status</dt>
+          <dt>Contact</dt>
           <dd>{{ profile.availability }}</dd>
         </div>
       </dl>
@@ -34,7 +34,7 @@ permalink: /portfolio/
 
     <article class="card">
       <div class="card-header">
-        <p class="eyebrow">Links</p>
+        <p class="eyebrow">Contact</p>
         <h2>公開先と連絡先</h2>
       </div>
       <ul class="contact-list">
@@ -52,8 +52,8 @@ permalink: /portfolio/
 <section class="section section-tight">
   <div class="shell">
     <div class="section-heading">
-      <p class="eyebrow">Career</p>
-      <h2>経歴</h2>
+      <p class="eyebrow">Activity</p>
+      <h2>活動</h2>
     </div>
 
     <div class="timeline">
@@ -74,8 +74,8 @@ permalink: /portfolio/
 <section class="section section-tight">
   <div class="shell">
     <div class="section-heading">
-      <p class="eyebrow">Achievements</p>
-      <h2>実績</h2>
+      <p class="eyebrow">Highlights</p>
+      <h2>主な公開内容</h2>
     </div>
 
     <div class="section-grid section-grid-triple">
@@ -92,8 +92,8 @@ permalink: /portfolio/
 <section class="section section-tight">
   <div class="shell banner-card">
     <div>
-      <p class="eyebrow">Next Step</p>
-      <h2>実績詳細はブログ側に蓄積</h2>
+      <p class="eyebrow">Blog</p>
+      <h2>詳細な記録はブログに集約</h2>
       <p>CTF 記事、技術検証、学習ログをブログとして積み上げることで、ポートフォリオから具体的なアウトプットへ自然に辿れる構成にしています。</p>
     </div>
     <a class="button button-primary" href="{{ '/blog/' | relative_url }}">ブログを見る</a>

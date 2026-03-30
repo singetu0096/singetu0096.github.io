@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Blog
-subtitle: "セキュリティ関連の検証メモや CTF 記事を Markdown で管理するブログ一覧です。"
+subtitle: "セキュリティ関連の検証メモや CTF 記事をまとめたブログ一覧です。"
 description: "セキュリティや CTF 記事の一覧。タグで絞り込み可能。"
-collection_label: "Entries"
+collection_label: "Blog"
 permalink: /blog/
 ---
 {% assign sorted_tags = site.tags | sort %}
@@ -12,23 +12,23 @@ permalink: /blog/
   <div class="shell">
     <div class="blog-controls" data-blog-controls>
       <div class="filter-group" aria-label="Tag filters">
-        <button class="filter-chip is-active" type="button" data-filter="all">All</button>
+        <button class="filter-chip is-active" type="button" data-filter="all">すべて</button>
         {% for tag in sorted_tags %}
           <button class="filter-chip" type="button" data-filter="{{ tag[0] | downcase }}">{{ tag[0] }} ({{ tag[1].size }})</button>
         {% endfor %}
       </div>
 
       <label class="sort-control">
-        <span>Sort</span>
+        <span>並び順</span>
         <select data-sort>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="title">Title</option>
+          <option value="newest">新しい順</option>
+          <option value="oldest">古い順</option>
+          <option value="title">タイトル順</option>
         </select>
       </label>
     </div>
 
-    <p class="results-line" data-results-line>{{ site.posts | size }} posts</p>
+    <p class="results-line" data-results-line>{{ site.posts | size }} 件の記事</p>
 
     <div class="post-grid" data-post-grid>
       {% for post in site.posts %}
@@ -55,8 +55,8 @@ permalink: /blog/
     </div>
 
     <div class="empty-state" data-empty-state hidden>
-      <h2>No posts found</h2>
-      <p>そのタグに一致する記事はまだありません。</p>
+      <h2>記事が見つかりません</h2>
+      <p>選択したタグに一致する記事はまだありません。</p>
     </div>
   </div>
 </section>
