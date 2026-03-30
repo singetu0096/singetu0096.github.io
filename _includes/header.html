@@ -5,9 +5,9 @@
     </a>
 
     <nav class="site-nav" aria-label="Primary">
-      <a class="{% if page.url contains '/portfolio/' %}is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
-      <a class="{% if page.url contains '/writeups/' %}is-active{% endif %}" href="{{ '/writeups/' | relative_url }}">Writeups</a>
-      <a class="{% if page.url contains '/blog/' %}is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a data-nav-key="portfolio" class="{% if page.url contains '/portfolio/' %}is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+      <a data-nav-key="writeups" href="{{ '/blog/' | relative_url }}?tag=writeup">Writeups</a>
+      <a data-nav-key="blog" class="{% if page.url contains '/blog/' %}is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
     </nav>
   </div>
 </header>

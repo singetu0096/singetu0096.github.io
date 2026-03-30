@@ -1,3 +1,31 @@
+const navLinks = Array.from(document.querySelectorAll("[data-nav-key]"));
+
+const syncNav = (activeFilterValue) => {
+  if (navLinks.length === 0) {
+    return;
+  }
+
+  navLinks.forEach((link) => link.classList.remove("is-active"));
+
+  const pathname = window.location.pathname;
+
+  if (pathname.includes("/portfolio/")) {
+    const portfolioLink = navLinks.find((link) => link.dataset.navKey === "portfolio");
+    if (portfolioLink) {
+      portfolioLink.classList.add("is-active");
+    }
+    return;
+  }
+
+  if (pathname.includes("/blog/")) {
+    const navKey = activeFilterValue === "writeup" ? "writeups" : "blog";
+    const activeLink = navLinks.find((link) => link.dataset.navKey === navKey);
+    if (activeLink) {
+      activeLink.classList.add("is-active");
+    }
+  }
+};
+
 const controls = document.querySelector("[data-blog-controls]");
 
 if (controls) {
@@ -70,6 +98,7 @@ if (controls) {
     const nextQuery = nextParams.toString();
     const nextUrl = nextQuery ? `${window.location.pathname}?${nextQuery}` : window.location.pathname;
     window.history.replaceState({}, "", nextUrl);
+    syncNav(activeFilter);
   };
 
   if (!filterButtons.some((button) => button.dataset.filter === activeFilter)) {
@@ -95,4 +124,6 @@ if (controls) {
   }
 
   applyState();
+} else {
+  syncNav("all");
 }
