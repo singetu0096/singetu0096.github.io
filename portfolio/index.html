@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Portfolio
-subtitle: "経歴、実績、連絡先をまとめたプロフィールページです。"
-description: "singetu0096 の経歴や実績、連絡先を掲載するポートフォリオページ。"
+subtitle: "経歴、活動内容、連絡先をまとめたページです。"
+description: "singetu0096 の経歴や連絡先を掲載するポートフォリオページ。"
 collection_label: "Portfolio"
 permalink: /portfolio/
 ---
@@ -68,34 +68,5 @@ permalink: /portfolio/
         </article>
       {% endfor %}
     </div>
-  </div>
-</section>
-
-<section class="section section-tight">
-  <div class="shell">
-    <div class="section-heading">
-      <p class="eyebrow">Highlights</p>
-      <h2>主な公開内容</h2>
-    </div>
-
-    <div class="section-grid section-grid-triple">
-      {% for item in profile.achievements %}
-        <article class="card">
-          <h3>{{ item.title }}</h3>
-          <p>{{ item.detail }}</p>
-        </article>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<section class="section section-tight">
-  <div class="shell banner-card">
-    <div>
-      <p class="eyebrow">Blog</p>
-      <h2>詳細な記録はブログに集約</h2>
-      <p>CTF 記事、技術検証、学習ログをブログとして積み上げることで、ポートフォリオから具体的なアウトプットへ自然に辿れる構成にしています。</p>
-    </div>
-    <a class="button button-primary" href="{{ '/blog/' | relative_url }}">ブログを見る</a>
   </div>
 </section>

@@ -1,0 +1,40 @@
+---
+layout: page
+title: Writeups
+subtitle: "CTF writeup をまとめた一覧です。"
+description: "CTF writeup の一覧ページ。"
+collection_label: "Writeups"
+permalink: /writeups/
+---
+{% assign writeups = site.posts | where_exp: "post", "post.tags contains 'writeup'" %}
+
+<section class="section section-tight">
+  <div class="shell">
+    <p class="results-line">{{ writeups | size }} 件の writeup</p>
+
+    <div class="post-grid">
+      {% for post in writeups %}
+        <article class="post-card">
+          <p class="post-card-meta">{{ post.date | date: "%Y.%m.%d" }}</p>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+          <p>{{ post.description | default: post.excerpt | strip_html | truncatewords: 28 }}</p>
+
+          {% if post.tags %}
+            <div class="tag-list">
+              {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if writeups.size == 0 %}
+      <div class="empty-state">
+        <h2>writeup はまだありません</h2>
+        <p>writeup タグの付いた記事が追加されるとここに表示されます。</p>
+      </div>
+    {% endif %}
+  </div>
+</section>

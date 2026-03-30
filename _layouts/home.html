@@ -1,150 +1,46 @@
 ---
 layout: default
 ---
-{% assign profile = site.data.profile %}
+{% assign writeups = site.posts | where_exp: "post", "post.tags contains 'writeup'" %}
 
-<section class="hero">
-  <div class="shell hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">Security Notes</p>
-      <h1>{{ profile.headline }}</h1>
-      <p class="hero-english">{{ profile.headline_en }}</p>
-      <p class="lead">{{ profile.intro }}</p>
-      <p class="support-copy">{{ profile.intro_en }}</p>
-
-      <div class="hero-actions">
-        <a class="button button-primary" href="{{ '/portfolio/' | relative_url }}">ポートフォリオを見る</a>
-        <a class="button button-secondary" href="{{ '/blog/' | relative_url }}">ブログを見る</a>
-      </div>
+<section class="hero hero-simple">
+  <div class="shell">
+    <div class="hero-copy hero-copy-single">
+      <p class="eyebrow">Portfolio / Writeups / Blog</p>
+      <h1>ポートフォリオ、writeup、ブログ</h1>
+      <p class="hero-english">Portfolio, writeups, and blog.</p>
+      <p class="lead">プロフィール、CTF writeup、技術メモをまとめた個人サイトです。</p>
     </div>
-
-    <aside class="hero-panel">
-      <p class="panel-label">Focus / 注力領域</p>
-      <div class="token-list">
-        {% for area in profile.focus_areas %}
-          <span class="token">{{ area }}</span>
-        {% endfor %}
-      </div>
-
-      <dl class="fact-list">
-        <div>
-          <dt>Location / 所在地</dt>
-          <dd>{{ profile.location }}</dd>
-        </div>
-        <div>
-          <dt>Contact / 連絡先</dt>
-          <dd>{{ profile.contacts[0].value }}</dd>
-        </div>
-        <div>
-          <dt>Updates / 更新内容</dt>
-          <dd>Blog / Portfolio</dd>
-        </div>
-      </dl>
-    </aside>
-  </div>
-</section>
-
-<section class="section">
-  <div class="shell section-grid section-grid-double">
-    <article class="card card-accent">
-      <div class="card-header">
-        <p class="eyebrow">Portfolio</p>
-        <h2>プロフィールと活動内容</h2>
-      </div>
-      <p>{{ profile.subheadline }}</p>
-      <ul class="mini-list">
-        {% for item in profile.experience limit: 3 %}
-          <li>
-            <strong>{{ item.period }}</strong>
-            <span>{{ item.role }} / {{ item.organization }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-      <a class="text-link" href="{{ '/portfolio/' | relative_url }}">プロフィール詳細を見る</a>
-    </article>
-
-    <article class="card">
-      <div class="card-header">
-        <p class="eyebrow">Recent Posts</p>
-        <h2>最近の投稿</h2>
-      </div>
-      <div class="stack-list">
-        {% for post in site.posts limit: 3 %}
-          <a class="stack-item" href="{{ post.url | relative_url }}">
-            <span class="stack-meta">{{ post.date | date: "%Y.%m.%d" }}</span>
-            <strong>{{ post.title }}</strong>
-            <span>{{ post.description }}</span>
-          </a>
-        {% endfor %}
-      </div>
-      <a class="text-link" href="{{ '/blog/' | relative_url }}">ブログ一覧へ</a>
-    </article>
   </div>
 </section>
 
 <section class="section section-tight">
-  <div class="shell section-heading">
-    <p class="eyebrow">Contents</p>
-    <h2>このサイトで公開しているもの</h2>
-    <p class="section-lead">What you can find here: practical notes, writeups, and reusable workflows.</p>
-  </div>
-
   <div class="shell section-grid section-grid-triple">
-    <article class="card">
+    <article class="card card-accent card-simple">
       <div class="card-header">
-        <p class="eyebrow">Web Security</p>
-        <h2>脆弱性検証メモ</h2>
+        <p class="eyebrow">Portfolio</p>
+        <h2>プロフィール</h2>
       </div>
-      <p>Web アプリケーションの挙動確認、認証や権限の観点、再現手順、調査中の気づきを記事として整理しています。</p>
-      <p class="support-copy">Notes on web security testing, edge cases, and reproducible observations.</p>
-      <ul class="mini-list compact-list">
-        <li>
-          <strong>認証と権限</strong>
-          <span>ログイン、権限差分、状態遷移の確認メモ</span>
-        </li>
-        <li>
-          <strong>調査ログ</strong>
-          <span>仮説、試行、結果を追いやすい形で記録</span>
-        </li>
-      </ul>
+      <p>経歴、活動内容、連絡先をまとめています。</p>
+      <a class="text-link" href="{{ '/portfolio/' | relative_url }}">Portfolio を見る</a>
     </article>
 
-    <article class="card">
+    <article class="card card-simple">
       <div class="card-header">
-        <p class="eyebrow">CTF</p>
-        <h2>writeup と解法整理</h2>
+        <p class="eyebrow">Writeups</p>
+        <h2>CTF writeup</h2>
       </div>
-      <p>CTF の解法だけでなく、どこに着目したか、なぜその方針を取ったか、別解の余地があるかまで整理しています。</p>
-      <p class="support-copy">Writeups focused on approach, reasoning, and lessons learned, not just final answers.</p>
-      <ul class="mini-list compact-list">
-        <li>
-          <strong>問題概要</strong>
-          <span>制約や前提を短く把握できる形で整理</span>
-        </li>
-        <li>
-          <strong>解法の流れ</strong>
-          <span>着眼点から exploit や解答までの流れを記録</span>
-        </li>
-      </ul>
+      <p>CTF の解法や検証過程をまとめた記事一覧です。現在 {{ writeups | size }} 件。</p>
+      <a class="text-link" href="{{ '/writeups/' | relative_url }}">Writeups を見る</a>
     </article>
 
-    <article class="card">
+    <article class="card card-simple">
       <div class="card-header">
-        <p class="eyebrow">Tools & Notes</p>
-        <h2>運用メモと小さな自動化</h2>
+        <p class="eyebrow">Blog</p>
+        <h2>技術メモ</h2>
       </div>
-      <p>検証を回しやすくするための小さなスクリプト、チェックリスト、更新フローなどもまとめて残しています。</p>
-      <p class="support-copy">Reusable workflows, helper scripts, and lightweight automation for day-to-day work.</p>
-      <ul class="mini-list compact-list">
-        <li>
-          <strong>チェックリスト</strong>
-          <span>毎回ゼロから考えないための確認項目</span>
-        </li>
-        <li>
-          <strong>運用フロー</strong>
-          <span>記事追加や更新作業を軽くする仕組み</span>
-        </li>
-      </ul>
+      <p>セキュリティ関連のメモや検証ログをタグ付きで整理しています。</p>
+      <a class="text-link" href="{{ '/blog/' | relative_url }}">Blog を見る</a>
     </article>
   </div>
 </section>
