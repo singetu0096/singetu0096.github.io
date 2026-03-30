@@ -1,0 +1,62 @@
+---
+layout: page
+title: Blog
+subtitle: "セキュリティ関連の検証メモや CTF 記事を Markdown で管理するブログ一覧です。"
+description: "セキュリティや CTF 記事の一覧。タグで絞り込み可能。"
+collection_label: "Entries"
+permalink: /blog/
+---
+{% assign sorted_tags = site.tags | sort %}
+
+<section class="section section-tight">
+  <div class="shell">
+    <div class="blog-controls" data-blog-controls>
+      <div class="filter-group" aria-label="Tag filters">
+        <button class="filter-chip is-active" type="button" data-filter="all">All</button>
+        {% for tag in sorted_tags %}
+          <button class="filter-chip" type="button" data-filter="{{ tag[0] | downcase }}">{{ tag[0] }} ({{ tag[1].size }})</button>
+        {% endfor %}
+      </div>
+
+      <label class="sort-control">
+        <span>Sort</span>
+        <select data-sort>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="title">Title</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="results-line" data-results-line>{{ site.posts | size }} posts</p>
+
+    <div class="post-grid" data-post-grid>
+      {% for post in site.posts %}
+        <article
+          class="post-card"
+          data-post-card
+          data-tags="{{ post.tags | join: ',' | downcase }}"
+          data-date="{{ post.date | date: '%Y%m%d%H%M%S' }}"
+          data-title="{{ post.title | downcase }}"
+        >
+          <p class="post-card-meta">{{ post.date | date: "%Y.%m.%d" }}</p>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+          <p>{{ post.description | default: post.excerpt | strip_html | truncatewords: 28 }}</p>
+
+          {% if post.tags %}
+            <div class="tag-list">
+              {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="empty-state" data-empty-state hidden>
+      <h2>No posts found</h2>
+      <p>そのタグに一致する記事はまだありません。</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,101 @@
+---
+layout: page
+title: Portfolio
+subtitle: "経歴、実績、連絡先をまとめるためのプロフィールページです。"
+description: "singetu0096 の経歴や実績、連絡先を掲載するポートフォリオページ。"
+collection_label: "Profile"
+permalink: /portfolio/
+---
+{% assign profile = site.data.profile %}
+
+<section class="section section-tight">
+  <div class="shell section-grid section-grid-double">
+    <article class="card card-accent">
+      <div class="card-header">
+        <p class="eyebrow">Overview</p>
+        <h2>{{ profile.owner }}</h2>
+      </div>
+      <p>{{ profile.intro }}</p>
+      <dl class="fact-list">
+        <div>
+          <dt>Location</dt>
+          <dd>{{ profile.location }}</dd>
+        </div>
+        <div>
+          <dt>Focus</dt>
+          <dd>{{ profile.focus_areas | join: " / " }}</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>{{ profile.availability }}</dd>
+        </div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <p class="eyebrow">Links</p>
+        <h2>公開先と連絡先</h2>
+      </div>
+      <ul class="contact-list">
+        {% for contact in profile.contacts %}
+          <li>
+            <span>{{ contact.label }}</span>
+            <a href="{{ contact.url }}" rel="noreferrer">{{ contact.value }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Career</p>
+      <h2>経歴</h2>
+    </div>
+
+    <div class="timeline">
+      {% for item in profile.experience %}
+        <article class="timeline-item">
+          <div class="timeline-period">{{ item.period }}</div>
+          <div class="timeline-content">
+            <h3>{{ item.role }}</h3>
+            <p class="timeline-org">{{ item.organization }}</p>
+            <p>{{ item.summary }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Achievements</p>
+      <h2>実績</h2>
+    </div>
+
+    <div class="section-grid section-grid-triple">
+      {% for item in profile.achievements %}
+        <article class="card">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.detail }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="shell banner-card">
+    <div>
+      <p class="eyebrow">Next Step</p>
+      <h2>実績詳細はブログ側に蓄積</h2>
+      <p>CTF 記事、技術検証、学習ログをブログとして積み上げることで、ポートフォリオから具体的なアウトプットへ自然に辿れる構成にしています。</p>
+    </div>
+    <a class="button button-primary" href="{{ '/blog/' | relative_url }}">ブログを見る</a>
+  </div>
+</section>

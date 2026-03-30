@@ -1,0 +1,19 @@
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <div>
+      <p class="footer-title">{{ site.title }}</p>
+      <p class="footer-copy">Portfolio details, security notes, and blog posts published with Jekyll + GitHub Pages.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+      <a href="{{ '/blog/' | relative_url }}">Blog</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    </div>
+  </div>
+
+  <div class="shell footer-meta">
+    <span>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</span>
+    <span>Built for GitHub Pages</span>
+  </div>
+</footer>

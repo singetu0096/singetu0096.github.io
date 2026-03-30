@@ -1,0 +1,54 @@
+# Edit this file to keep your portfolio current.
+owner: "singetu0096"
+headline: "Security research, CTF, and engineering notes."
+subheadline: "ポートフォリオとブログを一体化した、検証ログ中心の GitHub Pages サイト。"
+intro: "脆弱性検証、CTF、運用メモ、学習ログを公開するための個人サイトです。記事は Markdown で追加でき、ブログ一覧ではタグ別に内容を絞り込めます。"
+location: "Japan"
+availability: "お問い合わせ、登壇、執筆、共同研究の相談先をここに整理できます。"
+
+links:
+  - label: "Portfolio"
+    url: "/portfolio/"
+    external: false
+  - label: "Blog"
+    url: "/blog/"
+    external: false
+
+focus_areas:
+  - "Web Security"
+  - "CTF"
+  - "Threat Research"
+  - "Automation"
+
+experience:
+  - period: "Now"
+    role: "Current role"
+    organization: "Add your company, lab, or team"
+    summary: "今の担当領域や研究テーマ、開発内容をここに記載してください。"
+  - period: "Before"
+    role: "Previous role"
+    organization: "Add a previous team, school, or project"
+    summary: "過去の経歴、専攻、業務内容、担当技術などを整理します。"
+  - period: "Future"
+    role: "What you want next"
+    organization: "Optional"
+    summary: "今後やりたいこと、挑戦したい分野、探している機会を書けます。"
+
+achievements:
+  - title: "CTF participation"
+    detail: "出場大会、得意カテゴリ、順位、チーム名などを記載。"
+  - title: "Talks and articles"
+    detail: "登壇、ブログ、寄稿、発表資料へのリンクをまとめる場所。"
+  - title: "OSS and tooling"
+    detail: "作成したツール、公開コード、便利スクリプトの紹介に使用。"
+
+contacts:
+  - label: "Email"
+    value: "your.name@example.com"
+    url: "mailto:your.name@example.com"
+  - label: "GitHub"
+    value: "@singetu0096"
+    url: "https://github.com/singetu0096"
+  - label: "X"
+    value: "@your_handle"
+    url: "https://x.com/your_handle"

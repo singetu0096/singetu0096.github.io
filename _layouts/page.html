@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">{{ page.collection_label | default: 'Section' }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}
+      <p class="lead">{{ page.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="page-shell">
+  {{ content }}
+</div>

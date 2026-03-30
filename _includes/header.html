@@ -1,0 +1,13 @@
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <strong>{{ site.title }}</strong>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a class="{% if page.url == '/' %}is-active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
+      <a class="{% if page.url contains '/portfolio/' %}is-active{% endif %}" href="{{ '/portfolio/' | relative_url }}">Portfolio</a>
+      <a class="{% if page.url contains '/blog/' %}is-active{% endif %}" href="{{ '/blog/' | relative_url }}">Blog</a>
+    </nav>
+  </div>
+</header>

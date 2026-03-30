@@ -1,0 +1,33 @@
+title: "singetu0096"
+description: "Portfolio, security notes, and CTF blog posts."
+lang: ja
+timezone: Asia/Tokyo
+url: "https://singetu0096.github.io"
+baseurl: ""
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+excerpt_separator: "<!--more-->"
+
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+author:
+  name: "singetu0096"
+
+feed:
+  path: feed.xml

@@ -1,0 +1,35 @@
+---
+layout: default
+---
+{% assign reading_time = content | number_of_words | divided_by: 220 | plus: 1 %}
+
+<article class="post-shell">
+  <div class="shell">
+    <a class="post-backlink" href="{{ '/blog/' | relative_url }}">Blog Index</a>
+
+    <header class="post-header">
+      <p class="eyebrow">Article</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="lead">{{ page.description }}</p>
+      {% endif %}
+
+      <div class="post-meta">
+        <span>{{ page.date | date: "%Y.%m.%d" }}</span>
+        <span>{{ reading_time }} min read</span>
+      </div>
+
+      {% if page.tags %}
+        <div class="tag-list">
+          {% for tag in page.tags %}
+            <a class="tag" href="{{ '/blog/?tag=' | append: tag | uri_escape | relative_url }}">{{ tag }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </header>
+
+    <div class="post-body prose">
+      {{ content }}
+    </div>
+  </div>
+</article>
